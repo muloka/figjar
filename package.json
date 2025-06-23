@@ -1,0 +1,76 @@
+{
+  "name": "figjar",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Maximize Figma plugin storage with intelligent compression and chunking - get the most out of Figma's 5MB quota with zero configuration",
+  "funding": {
+    "type": "individual",
+    "url": "https://github.com/sponsors/muloka"
+  },
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "dev": "tsc --build tsconfig.dev.json --watch",
+    "dev:clean": "rm -rf dist-dev && npm run dev",
+    "build:dev": "tsc --build tsconfig.dev.json",
+    "build": "rollup -c",
+    "build:clean": "rm -rf dist && npm run build",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
+    "test:performance": "jest tests/performance --verbose",
+    "test:performance:memory": "node --expose-gc node_modules/.bin/jest tests/performance/memory.test.ts",
+    "test:performance:quick": "jest tests/performance/benchmark.test.ts --verbose",
+    "validate": "npm test && npm run test:performance && npm run build",
+    "prepublishOnly": "npm run validate"
+  },
+  "keywords": [
+    "figma",
+    "plugin",
+    "storage",
+    "5mb",
+    "compression",
+    "quota",
+    "jar",
+    "chunking",
+    "zero-config",
+    "typescript"
+  ],
+  "author": "muloka",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/muloka/figjar.git"
+  },
+  "homepage": "https://github.com/muloka/figjar#readme",
+  "bugs": {
+    "url": "https://github.com/muloka/figjar/issues"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "files": [
+    "dist",
+    "src/**/*.ts",
+    "!src/**/*.test.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "dependencies": {
+    "fflate": "^0.8.2"
+  },
+  "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.3",
+    "@types/jest": "^30.0.0",
+    "@types/node": "^24.0.3",
+    "jest": "^29.7.0",
+    "rollup": "^4.43.0",
+    "ts-jest": "^29.4.0",
+    "tslib": "^2.8.1",
+    "typescript": "^5.8.3"
+  }
+}

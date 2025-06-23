@@ -1,0 +1,45 @@
+# Test files (not needed in published package)  
+tests/
+coverage/
+**/*.test.ts
+**/*.test.js
+
+# Development configuration
+tsconfig*.json
+jest.config.*
+rollup.config.js
+.eslintrc*
+.prettierrc*
+
+# Development documentation
+planning/
+*validation-report*.md
+*completion-report*.md
+*fix-plan*.md
+Comprehensive*.md
+phase-*.md
+
+# Development dependencies and outputs
+node_modules/
+dist-dev/
+*.tsbuildinfo
+*.log
+
+# Version control and IDE
+.git/
+.gitignore
+.DS_Store
+.vscode/
+.idea/
+.claude/
+
+# CI/CD and tooling
+.github/
+.tool-versions
+.npmrc
+
+# Temporary files
+*.tmp
+*.temp
+temp/
+tmp/
