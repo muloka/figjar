@@ -67,4 +67,4 @@ Generates realistic test data for various scenarios.
 - **Memory growth** should be minimal after GC
 - **Compression ratios** vary by data type
 
-For more details, see the main [TESTING_STRATEGY.md](../../planning/TESTING_STRATEGY.md).
+For more details, see the [PERFORMANCE_MONITORING.md](../../PERFORMANCE_MONITORING.md) guide.
