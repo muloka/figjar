@@ -1,6 +1,6 @@
 {
   "name": "figjar",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "type": "module",
   "description": "Maximize Figma plugin storage with intelligent compression and chunking - get the most out of Figma's 5MB quota with zero configuration",
   "funding": {
