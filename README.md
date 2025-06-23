@@ -14,7 +14,7 @@ Maximize Figma plugin storage with intelligent compression and chunking - get th
 ✅ **Type Safe** - Full TypeScript support with generics  
 ✅ **UTF-16 Safe** - Handles all Unicode correctly  
 ✅ **Data Integrity** - Automatic corruption detection  
-✅ **Quota Management** - Global tracking across all nodes and keys  
+✅ **Quota Management** - Global tracking across all nodes and keys
 
 ## 📦 Installation
 
@@ -25,35 +25,35 @@ npm install figjar
 ## 🎯 Quick Start
 
 ```typescript
-import { PluginData } from 'figjar';
+import { PluginData } from "figjar";
 
 // That's it! No configuration needed
 const storage = new PluginData(figma.currentPage);
 
 // Store anything - automatic serialization, compression, chunking
 const myData = {
-  components: Array(1000).fill({ type: 'button', props: {} }),
-  theme: { colors: { primary: '#000' }, fonts: {} },
-  settings: { user: 'John', preferences: {} }
+  components: Array(1000).fill({ type: "button", props: {} }),
+  theme: { colors: { primary: "#000" }, fonts: {} },
+  settings: { user: "John", preferences: {} },
 };
 
-storage.setPluginData('my-data', myData);
+storage.setPluginData("my-data", myData);
 
 // Get it back - automatic decompression, reassembly, deserialization
-const retrieved = storage.getPluginData('my-data');
+const retrieved = storage.getPluginData("my-data");
 ```
 
 ## 🔄 Migration from Native API
 
 ```typescript
 // Before - with native API (limited to 100KB per entry)
-node.setPluginData('key', JSON.stringify(data));
-const data = JSON.parse(node.getPluginData('key'));
+node.setPluginData("key", JSON.stringify(data));
+const data = JSON.parse(node.getPluginData("key"));
 
 // After - with figjar (intelligent storage optimization)
 const storage = new PluginData(node);
-storage.setPluginData('key', data);  // Auto JSON.stringify
-const data = storage.getPluginData('key');  // Auto JSON.parse
+storage.setPluginData("key", data); // Auto JSON.stringify
+const data = storage.getPluginData("key"); // Auto JSON.parse
 
 // Migrate existing data automatically
 const result = await storage.migrateFromNative();
@@ -79,6 +79,7 @@ setPluginData<T>(key: string, value: T): void
 ```
 
 Stores data efficiently within Figma's 5MB quota. Automatically handles:
+
 - JSON serialization for objects
 - Gzip compression (always enabled)
 - Chunking for data > 85KB
@@ -93,6 +94,7 @@ getPluginData<T>(key: string): T
 ```
 
 Retrieves stored data. Automatically handles:
+
 - Chunk reassembly
 - Decompression
 - JSON deserialization
@@ -121,7 +123,7 @@ Removes data and all associated chunks/metadata. Updates quota tracking.
 ```typescript
 getQuotaStats(): {
   used: number;
-  available: number; 
+  available: number;
   remaining: number;
   utilizationPercent: number;
 }
@@ -179,7 +181,7 @@ interface IMigrationResult {
 ### How figjar Works
 
 1. **Compression First**: All data is automatically compressed with gzip
-2. **Smart Chunking**: If compressed data > 85KB, it's split into chunks  
+2. **Smart Chunking**: If compressed data > 85KB, it's split into chunks
 3. **Entry Validation**: Each chunk + key must be ≤ 100KB (Figma's limit)
 4. **Global Tracking**: Monitors total usage across all nodes (5MB limit)
 5. **Metadata Management**: Stores checksums and chunk info separately
@@ -187,7 +189,7 @@ interface IMigrationResult {
 ### Key Limits
 
 - **Total Quota**: 5MB across all plugin data (Figma limitation)
-- **Entry Size**: 100KB per setPluginData call (Figma limitation)  
+- **Entry Size**: 100KB per setPluginData call (Figma limitation)
 - **Chunk Size**: 85KB data + ~15KB key overhead = safe 100KB entries
 - **Individual Data**: 5MB before compression (architectural limit)
 
@@ -196,28 +198,30 @@ interface IMigrationResult {
 figjar throws 6 specific error types:
 
 ```typescript
-import { 
-  DataTooLargeError,      // Data > 5MB before compression
-  DataCorruptedError,     // Checksum validation failed
-  InvalidKeyError,        // Empty key or starts with '__fpdu_'
-  CompressionError,       // Compression/decompression failed
-  QuotaExceededError,     // Would exceed 5MB total quota
-  EntryTooLargeError      // Entry would exceed 100KB limit
-} from 'figjar';
+import {
+  DataTooLargeError, // Data > 5MB before compression
+  DataCorruptedError, // Checksum validation failed
+  InvalidKeyError, // Empty key or starts with '__fpdu_'
+  CompressionError, // Compression/decompression failed
+  QuotaExceededError, // Would exceed 5MB total quota
+  EntryTooLargeError, // Entry would exceed 100KB limit
+} from "figjar";
 ```
 
 ## 🚀 Performance
 
-*Validated performance characteristics (tested on production hardware):*
+_Validated performance characteristics (tested on production hardware):_
 
 ### Operation Speed
+
 - **1KB data**: 0.39ms median, 0.93ms P95
-- **10KB data**: 1.43ms median, 1.89ms P95  
+- **10KB data**: 1.43ms median, 1.89ms P95
 - **50KB data**: 7.80ms median, 8.03ms P95
 - **1MB data**: 94.7ms median, 105.8ms P95
 - **Target**: All operations well within < 200ms for 1MB, < 50ms for smaller data ✅
 
 ### Compression Efficiency
+
 - **Settings data**: 92.6% compression (realistic user preferences)
 - **Component data**: 71.6% compression (design system components)
 - **Token data**: 79.4% compression (design tokens and values)
@@ -225,6 +229,7 @@ import {
 - **Target**: All data types achieve > 60% compression ✅
 
 ### Memory Usage
+
 - **Overhead**: < 10% of data size for efficient storage
 - **Stability**: No memory leaks during extended usage
 - **Cleanup**: Proper memory release when data is deleted
@@ -235,7 +240,7 @@ import {
 ### Global Quota Management
 
 ```typescript
-import { GlobalQuotaManager } from 'figjar';
+import { GlobalQuotaManager } from "figjar";
 
 // Check total usage across all nodes
 const usage = GlobalQuotaManager.getCurrentUsage();
@@ -243,8 +248,8 @@ const remaining = GlobalQuotaManager.getRemainingQuota();
 
 // Get detailed breakdown
 const report = GlobalQuotaManager.getUsageReport();
-console.log('Per-node usage:', report.nodeBreakdown);
-console.log('Per-key usage:', report.keyBreakdown);
+console.log("Per-node usage:", report.nodeBreakdown);
+console.log("Per-key usage:", report.keyBreakdown);
 
 // Reset tracking (useful for testing)
 GlobalQuotaManager.reset();
@@ -257,12 +262,14 @@ const storage = new PluginData(node);
 
 // Store large dataset
 const startTime = performance.now();
-storage.setPluginData('large-dataset', myLargeObject);
+storage.setPluginData("large-dataset", myLargeObject);
 const storeTime = performance.now() - startTime;
 
 // Check compression effectiveness
 const stats = storage.getQuotaStats();
-console.log(`Stored data using ${stats.utilizationPercent.toFixed(1)}% of quota`);
+console.log(
+  `Stored data using ${stats.utilizationPercent.toFixed(1)}% of quota`,
+);
 
 // Optimize if needed
 const optimization = storage.optimizeStorage();
@@ -273,18 +280,18 @@ console.log(`Saved ${optimization.bytesSaved} bytes`);
 
 ```typescript
 try {
-  storage.setPluginData('key', data);
+  storage.setPluginData("key", data);
 } catch (error) {
   if (error instanceof QuotaExceededError) {
     // Clean up old data or optimize
     storage.optimizeStorage();
     // Try again or notify user
   } else if (error instanceof DataTooLargeError) {
-    // Data is > 5MB, need to split or reduce
-    console.log('Data too large:', error.actualSize);
+    // Data is > 5MB before compression, reduce data size
+    console.log("Data too large:", error.actualSize);
   } else if (error instanceof EntryTooLargeError) {
-    // Shouldn't happen with figjar, but indicates bug
-    console.error('Entry validation failed:', error);
+    // Internal error - figjar's automatic chunking prevents this
+    console.error("Internal chunking error:", error);
   }
 }
 ```
@@ -292,13 +299,16 @@ try {
 ## 📈 Performance Best Practices
 
 ### Optimize Data for Compression
+
 ```typescript
 // ✅ Good: Structured data with patterns
 const settings = {
-  users: Array(10).fill(null).map((_, i) => ({
-    id: `user_${i}`,
-    preferences: { theme: 'dark', language: 'en' } // Repeated patterns
-  }))
+  users: Array(10)
+    .fill(null)
+    .map((_, i) => ({
+      id: `user_${i}`,
+      preferences: { theme: "dark", language: "en" }, // Repeated patterns
+    })),
 };
 
 // ❌ Avoid: Completely random data
@@ -306,34 +316,41 @@ const badData = { entropy: crypto.randomUUID().repeat(1000) };
 ```
 
 ### Monitor Quota Usage
+
 ```typescript
 const storage = new PluginData(node);
 
 // Check before storing large data
 const stats = storage.getQuotaStats();
 if (stats.utilizationPercent > 80) {
-  console.warn('Approaching quota limit:', stats);
+  console.warn("Approaching quota limit:", stats);
   storage.optimizeStorage(); // Re-compress existing data
 }
 ```
 
 ### Handle Large Datasets
-```typescript
-// ✅ Good: Store data incrementally
-const components = generateLargeComponentLibrary();
-for (const chunk of chunkArray(components, 50)) {
-  storage.setPluginData(`components_${chunk.id}`, chunk);
-}
 
-// ❌ Avoid: Single 4MB+ operations near quota limit
-storage.setPluginData('everything', massiveDataObject);
+```typescript
+// ✅ Good: figjar automatically handles large data up to 5MB
+const components = generateLargeComponentLibrary(); // e.g., 3MB of data
+storage.setPluginData("components", components); // Automatic compression & chunking
+
+// ✅ Also good: Organize by logical groups (not for chunking, but for organization)
+storage.setPluginData("components", allComponents);
+storage.setPluginData("tokens", allTokens);
+storage.setPluginData("settings", allSettings);
+
+// ❌ Avoid: Data larger than 5MB before compression
+const massiveData = generateData(10 * 1024 * 1024); // 10MB - too large!
+storage.setPluginData("too-big", massiveData); // Throws DataTooLargeError
 ```
 
 ### Performance Testing
+
 ```typescript
 // Measure operation performance
 const start = performance.now();
-storage.setPluginData('key', data);
+storage.setPluginData("key", data);
 const duration = performance.now() - start;
 
 console.log(`Operation took ${duration.toFixed(2)}ms`);

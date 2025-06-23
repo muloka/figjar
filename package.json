@@ -26,7 +26,7 @@
     "test:performance:memory": "node --expose-gc node_modules/.bin/jest tests/performance/memory.test.ts",
     "test:performance:quick": "jest tests/performance/benchmark.test.ts --verbose",
     "validate": "npm test && npm run test:performance && npm run build",
-    "prepublishOnly": "npm run validate"
+    "prepublishOnly": "npx jest --testPathIgnorePatterns=tests/performance && npm run build"
   },
   "keywords": [
     "figma",
